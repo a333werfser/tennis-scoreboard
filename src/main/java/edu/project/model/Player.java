@@ -18,7 +18,7 @@ public class Player {
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
 }
