@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -12,6 +13,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Match {
 
     @Id
