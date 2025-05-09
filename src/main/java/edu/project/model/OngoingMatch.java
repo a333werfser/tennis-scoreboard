@@ -1,5 +1,10 @@
 package edu.project.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class OngoingMatch {
 
     private Player player1;

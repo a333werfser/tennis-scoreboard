@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class OngoingMatchesService {
 
-    private static Map<String, OngoingMatch> ongoingMatches = new HashMap<>();
+    private static final Map<String, OngoingMatch> ongoingMatches = new HashMap<>();
 
     public String createNewMatch(Player player1, Player player2) {
         String uuid = UUID.randomUUID().toString();
@@ -19,4 +19,7 @@ public class OngoingMatchesService {
         return uuid;
     }
 
+    public OngoingMatch getMatch(String uuid) {
+        return ongoingMatches.get(uuid);
+    }
 }
