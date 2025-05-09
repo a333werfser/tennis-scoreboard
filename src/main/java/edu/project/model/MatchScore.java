@@ -19,38 +19,15 @@ public class MatchScore {
     }
 
     public void increasePlayerScore(int playerIndex) {
-        playerIndex -= 1;
-
-        if (!isTieBreak()) {
-            if (isPlayerPointsBelowThirty(playerIndex)) {
-                points[playerIndex] += 1;
-            } else {
-                points[playerIndex] += 1;
-
-                if (hasTwoPointGap()) {
-                    games[playerIndex] += 1;
-                    resetPoints();
-                }
-            }
+        if (isTieBreak()) {
+            handleTieBreak(playerIndex);
+        } else {
+            handleRegularScore(playerIndex);
         }
 
         if (isPlayerGamesAboveFive(playerIndex) && hasTwoGamesGap()) {
             sets[playerIndex] += 1;
             resetGames();
-        }
-
-        if (isTieBreak()) {
-            if (isPlayerTieBreakPointsBelowSix(playerIndex)) {
-                tieBreakPoints[playerIndex] += 1;
-            } else {
-                tieBreakPoints[playerIndex] += 1;
-
-                if (hasTwoTieBreakPointGap()) {
-                    sets[playerIndex] += 1;
-                    resetTieBreakPoints();
-                    resetGames();
-                }
-            }
         }
 
         if (isPlayerWinTwoSets(playerIndex)) {
@@ -73,12 +50,31 @@ public class MatchScore {
         games[1] = 0;
     }
 
-    private boolean isPlayerTieBreakPointsBelowSix(int playerIndex) {
-        return tieBreakPoints[playerIndex] < 6;
+    private void handleTieBreak(int playerIndex) {
+        tieBreakPoints[playerIndex] += 1;
+
+        if (isPlayerTieBreakPointsAboveSix(playerIndex) && hasTwoTieBreakPointGap()) {
+            sets[playerIndex] += 1;
+            resetGames();
+            resetTieBreakPoints();
+        }
     }
 
-    private boolean isPlayerPointsBelowThirty(int playerIndex) {
-        return points[playerIndex] < 3;
+    private void handleRegularScore(int playerIndex) {
+        points[playerIndex] += 1;
+
+        if (isPlayerPointsAboveThirty(playerIndex) && hasTwoPointGap()) {
+            games[playerIndex] += 1;
+            resetPoints();
+        }
+    }
+
+    private boolean isPlayerTieBreakPointsAboveSix(int playerIndex) {
+        return tieBreakPoints[playerIndex] > 6;
+    }
+
+    private boolean isPlayerPointsAboveThirty(int playerIndex) {
+        return points[playerIndex] > 3;
     }
 
     private boolean isPlayerGamesAboveFive(int playerIndex) {
