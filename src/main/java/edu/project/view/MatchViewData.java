@@ -1,5 +1,6 @@
 package edu.project.view;
 
+import edu.project.model.MatchScore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -35,4 +36,20 @@ public class MatchViewData {
         secondPlayerPoints = "-";
     }
 
+    public void update(MatchScore matchScore) {
+        int firstPlayerIndex = matchScore.getFirstPlayerIndex();
+        int secondPlayerIndex = matchScore.getSecondPlayerIndex();
+
+        if (matchScore.isTieBreak()) {
+            setFirstPlayerPoints(matchScore.getPlayerTieBreakPoints(firstPlayerIndex));
+            setSecondPlayerPoints(matchScore.getPlayerTieBreakPoints(secondPlayerIndex));
+        } else {
+            setFirstPlayerPoints(matchScore.getPlayerPoints(firstPlayerIndex));
+            setSecondPlayerPoints(matchScore.getPlayerPoints(secondPlayerIndex));
+        }
+        setFirstPlayerSets(matchScore.getPlayerSets(firstPlayerIndex));
+        setSecondPlayerSets(matchScore.getPlayerSets(secondPlayerIndex));
+        setFirstPlayerGames(matchScore.getPlayerGames(firstPlayerIndex));
+        setSecondPlayerGames(matchScore.getPlayerGames(secondPlayerIndex));
+    }
 }

@@ -1,5 +1,7 @@
 package edu.project.service;
 
+import edu.project.dao.MatchDao;
+import edu.project.model.Match;
 import edu.project.model.MatchScore;
 import edu.project.model.OngoingMatch;
 import edu.project.model.Player;
@@ -19,6 +21,15 @@ public class OngoingMatchesService {
         ongoingMatches.put(uuid, newMatch);
 
         return uuid;
+    }
+
+    public void completeMatch(String uuid, Player winner) {
+        OngoingMatch ongoingMatch = getMatch(uuid);
+
+        Match match = new Match().setPlayer1(ongoingMatch.getPlayer1())
+                .setPlayer2(ongoingMatch.getPlayer2()).setWinner(winner);
+        new MatchDao().saveMatch(match);
+        removeMatch(uuid);
     }
 
     public OngoingMatch getMatch(String uuid) {

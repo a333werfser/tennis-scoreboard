@@ -19,4 +19,7 @@ public class OngoingMatch {
         matchScore = new MatchScore();
     }
 
+    public Player getWinner(int winnerIndex) {
+        return winnerIndex == 0 ? player1 : player2;
+    }
 }

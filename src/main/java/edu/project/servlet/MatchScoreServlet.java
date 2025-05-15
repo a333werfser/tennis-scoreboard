@@ -44,34 +44,19 @@ public class MatchScoreServlet extends HttpServlet {
         OngoingMatch ongoingMatch = ongoingMatchesService.getMatch(uuid);
 
         int pointWinnerIndex = Integer.parseInt(request.getParameter("player_id")) - 1;
-        int firstPlayerIndex = 0;
-        int secondPlayerIndex = 1;
 
         MatchScore matchScore = ongoingMatch.getMatchScore();
         matchScore.increasePlayerScore(pointWinnerIndex);
 
-        if (matchScore.isTieBreak()) {
-            matchViewData.setFirstPlayerPoints(matchScore.getPlayerTieBreakPoints(firstPlayerIndex))
-                         .setSecondPlayerPoints(matchScore.getPlayerTieBreakPoints(secondPlayerIndex));
-        } else {
-            matchViewData.setFirstPlayerPoints(matchScore.getPlayerPoints(firstPlayerIndex))
-                         .setSecondPlayerPoints(matchScore.getPlayerPoints(secondPlayerIndex));
-        }
-
-        matchViewData.setFirstPlayerSets(matchScore.getPlayerSets(firstPlayerIndex))
-                     .setFirstPlayerGames(matchScore.getPlayerGames(firstPlayerIndex))
-                     .setSecondPlayerSets(matchScore.getPlayerSets(secondPlayerIndex))
-                     .setSecondPlayerGames(matchScore.getPlayerGames(secondPlayerIndex));
+        matchViewData.update(matchScore);
 
         request.setAttribute("uuid", uuid);
         request.setAttribute("matchViewData", matchViewData);
 
         if (matchScore.isMatchCompleted()) {
-            ongoingMatchesService.removeMatch(uuid);
-            Player winner = pointWinnerIndex == 0 ? ongoingMatch.getPlayer1() : ongoingMatch.getPlayer2();
-            Match match = new Match().setPlayer1(ongoingMatch.getPlayer1())
-                    .setPlayer2(ongoingMatch.getPlayer2()).setWinner(winner);
-            new MatchDao().saveMatch(match);
+            Player winner = ongoingMatch.getWinner(pointWinnerIndex);
+            ongoingMatchesService.completeMatch(uuid, winner);
+
             request.getRequestDispatcher("/final-score.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/match-score.jsp").forward(request, response);

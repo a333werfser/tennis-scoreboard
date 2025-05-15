@@ -10,7 +10,7 @@ public class MatchScore {
 
     private final int[] sets = new int[2];
 
-    private Integer winnerIndex;
+    private boolean winnerExists = false;
 
     public MatchScore() {
         resetPoints();
@@ -32,7 +32,7 @@ public class MatchScore {
         }
 
         if (isPlayerWinTwoSets(playerIndex)) {
-            winnerIndex = playerIndex;
+            winnerExists = true;
         }
     }
 
@@ -134,6 +134,14 @@ public class MatchScore {
     }
 
     public boolean isMatchCompleted() {
-        return winnerIndex != null;
+        return winnerExists;
+    }
+
+    public int getFirstPlayerIndex() {
+        return 0;
+    }
+
+    public int getSecondPlayerIndex() {
+        return 1;
     }
 }
