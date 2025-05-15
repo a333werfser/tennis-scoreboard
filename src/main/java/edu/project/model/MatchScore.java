@@ -10,12 +10,13 @@ public class MatchScore {
 
     private final int[] sets = new int[2];
 
-    private int winner;
+    private Integer winnerIndex;
 
     public MatchScore() {
         resetPoints();
         resetGames();
         resetTieBreakPoints();
+        resetSets();
     }
 
     public void increasePlayerScore(int playerIndex) {
@@ -31,7 +32,7 @@ public class MatchScore {
         }
 
         if (isPlayerWinTwoSets(playerIndex)) {
-            winner = playerIndex;
+            winnerIndex = playerIndex;
         }
     }
 
@@ -50,6 +51,11 @@ public class MatchScore {
         games[1] = 0;
     }
 
+    private void resetSets() {
+        sets[0] = 0;
+        sets[1] = 0;
+    }
+
     private void handleTieBreak(int playerIndex) {
         tieBreakPoints[playerIndex] += 1;
 
@@ -63,17 +69,43 @@ public class MatchScore {
     private void handleRegularScore(int playerIndex) {
         points[playerIndex] += 1;
 
-        if (isPlayerPointsAboveThirty(playerIndex) && hasTwoPointGap()) {
+        if (isPlayerPointsAboveThree(playerIndex) && hasTwoPointGap()) {
             games[playerIndex] += 1;
             resetPoints();
         }
+    }
+
+    public String getPlayerPoints(int playerIndex) {
+        int secondPlayerIndex = 1 - playerIndex;
+        String pointsLabel;
+
+        if (points[playerIndex] >= 3 && points[secondPlayerIndex] >= 3) {
+            pointsLabel = points[playerIndex] > points[secondPlayerIndex] ? "AD" : "DEUCE";
+        } else {
+            String[] pointsLabels = {"0", "15", "30", "40"};
+            pointsLabel = pointsLabels[points[playerIndex]];
+        }
+
+        return pointsLabel;
+    }
+
+    public String getPlayerTieBreakPoints(int playerIndex) {
+        return String.valueOf(tieBreakPoints[playerIndex]);
+    }
+
+    public String getPlayerGames(int playerIndex) {
+        return String.valueOf(games[playerIndex]);
+    }
+
+    public String getPlayerSets(int playerIndex) {
+        return String.valueOf(sets[playerIndex]);
     }
 
     private boolean isPlayerTieBreakPointsAboveSix(int playerIndex) {
         return tieBreakPoints[playerIndex] > 6;
     }
 
-    private boolean isPlayerPointsAboveThirty(int playerIndex) {
+    private boolean isPlayerPointsAboveThree(int playerIndex) {
         return points[playerIndex] > 3;
     }
 
@@ -97,7 +129,11 @@ public class MatchScore {
         return Math.abs(games[0] - games[1]) >= 2;
     }
 
-    private boolean isTieBreak() {
+    public boolean isTieBreak() {
         return games[0] == 6 && games[1] == 6;
+    }
+
+    public boolean isMatchCompleted() {
+        return winnerIndex != null;
     }
 }

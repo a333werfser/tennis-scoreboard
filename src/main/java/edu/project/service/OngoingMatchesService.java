@@ -1,7 +1,9 @@
 package edu.project.service;
 
+import edu.project.model.MatchScore;
 import edu.project.model.OngoingMatch;
 import edu.project.model.Player;
+import edu.project.view.MatchViewData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,5 +23,9 @@ public class OngoingMatchesService {
 
     public OngoingMatch getMatch(String uuid) {
         return ongoingMatches.get(uuid);
+    }
+
+    public void removeMatch(String uuid) {
+        ongoingMatches.remove(uuid);
     }
 }
