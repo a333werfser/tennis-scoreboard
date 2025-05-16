@@ -27,13 +27,7 @@ public class MatchViewData {
     private String secondPlayerPoints;
 
     public MatchViewData() {
-        firstPlayerSets = "-";
-        firstPlayerGames = "-";
-        firstPlayerPoints = "-";
-
-        secondPlayerSets = "-";
-        secondPlayerGames = "-";
-        secondPlayerPoints = "-";
+        reset();
     }
 
     public void update(MatchScore matchScore) {
@@ -51,5 +45,15 @@ public class MatchViewData {
         setSecondPlayerSets(matchScore.getPlayerSets(secondPlayerIndex));
         setFirstPlayerGames(matchScore.getPlayerGames(firstPlayerIndex));
         setSecondPlayerGames(matchScore.getPlayerGames(secondPlayerIndex));
+    }
+
+    public void reset() {
+        firstPlayerSets = "-";
+        firstPlayerGames = "-";
+        firstPlayerPoints = "-";
+
+        secondPlayerSets = "-";
+        secondPlayerGames = "-";
+        secondPlayerPoints = "-";
     }
 }

@@ -20,15 +20,15 @@ public class Match {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch=LAZY, optional = false)
+    @ManyToOne(fetch=FetchType.EAGER, optional = false)
     @JoinColumn(name = "Player1", referencedColumnName = "Id", nullable = false)
     private Player player1;
 
-    @ManyToOne(fetch=LAZY, optional = false)
+    @ManyToOne(fetch=FetchType.EAGER, optional = false)
     @JoinColumn(name = "Player2", referencedColumnName = "Id", nullable = false)
     private Player player2;
 
-    @ManyToOne(fetch=LAZY, optional = false)
+    @ManyToOne(fetch=FetchType.EAGER, optional = false)
     @JoinColumn(name = "Winner", referencedColumnName = "Id", nullable = false)
     private Player winner;
 

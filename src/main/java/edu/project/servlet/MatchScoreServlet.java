@@ -58,6 +58,7 @@ public class MatchScoreServlet extends HttpServlet {
             ongoingMatchesService.completeMatch(uuid, winner);
 
             request.getRequestDispatcher("/final-score.jsp").forward(request, response);
+            matchViewData.reset();
         } else {
             request.getRequestDispatcher("/match-score.jsp").forward(request, response);
         }

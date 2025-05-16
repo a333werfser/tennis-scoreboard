@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>match-score</title>
+    <title>final-score</title>
 </head>
 <body>
     <h2>Current match</h2>
