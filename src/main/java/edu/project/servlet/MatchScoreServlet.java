@@ -21,16 +21,13 @@ public class MatchScoreServlet extends HttpServlet {
 
     private final OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
 
-    private final MatchViewData matchViewData = new MatchViewData();
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuid = request.getParameter("uuid");
 
         OngoingMatch ongoingMatch = ongoingMatchesService.getMatch(uuid);
 
-        matchViewData.setFirstPlayerName(ongoingMatch.getPlayer1().getName());
-        matchViewData.setSecondPlayerName(ongoingMatch.getPlayer2().getName());
+        MatchViewData matchViewData = new MatchViewData(ongoingMatch);
 
         request.setAttribute("uuid", uuid);
         request.setAttribute("matchViewData", matchViewData);
@@ -48,19 +45,20 @@ public class MatchScoreServlet extends HttpServlet {
         MatchScore matchScore = ongoingMatch.getMatchScore();
         matchScore.increasePlayerScore(pointWinnerIndex);
 
-        matchViewData.update(matchScore);
+        MatchViewData matchViewData = new MatchViewData(ongoingMatch);
 
-        request.setAttribute("uuid", uuid);
-        request.setAttribute("matchViewData", matchViewData);
-
+        String view;
         if (matchScore.isMatchCompleted()) {
             Player winner = ongoingMatch.getWinner(pointWinnerIndex);
             ongoingMatchesService.completeMatch(uuid, winner);
 
-            request.getRequestDispatcher("/final-score.jsp").forward(request, response);
-            matchViewData.reset();
+            view = "final-score.jsp";
         } else {
-            request.getRequestDispatcher("/match-score.jsp").forward(request, response);
+            view = "/match-score.jsp";
         }
+
+        request.setAttribute("uuid", uuid);
+        request.setAttribute("matchViewData", matchViewData);
+        request.getRequestDispatcher(view).forward(request, response);
     }
 }

@@ -1,13 +1,12 @@
 package edu.project.view;
 
 import edu.project.model.MatchScore;
+import edu.project.model.OngoingMatch;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 public class MatchViewData {
     private String firstPlayerName;
 
@@ -26,11 +25,9 @@ public class MatchViewData {
 
     private String secondPlayerPoints;
 
-    public MatchViewData() {
-        reset();
-    }
+    public MatchViewData(OngoingMatch ongoingMatch) {
+        MatchScore matchScore = ongoingMatch.getMatchScore();
 
-    public void update(MatchScore matchScore) {
         int firstPlayerIndex = matchScore.getFirstPlayerIndex();
         int secondPlayerIndex = matchScore.getSecondPlayerIndex();
 
@@ -41,19 +38,11 @@ public class MatchViewData {
             setFirstPlayerPoints(matchScore.getPlayerPoints(firstPlayerIndex));
             setSecondPlayerPoints(matchScore.getPlayerPoints(secondPlayerIndex));
         }
+        setFirstPlayerName(ongoingMatch.getPlayer1().getName());
+        setSecondPlayerName(ongoingMatch.getPlayer2().getName());
         setFirstPlayerSets(matchScore.getPlayerSets(firstPlayerIndex));
         setSecondPlayerSets(matchScore.getPlayerSets(secondPlayerIndex));
         setFirstPlayerGames(matchScore.getPlayerGames(firstPlayerIndex));
         setSecondPlayerGames(matchScore.getPlayerGames(secondPlayerIndex));
-    }
-
-    public void reset() {
-        firstPlayerSets = "-";
-        firstPlayerGames = "-";
-        firstPlayerPoints = "-";
-
-        secondPlayerSets = "-";
-        secondPlayerGames = "-";
-        secondPlayerPoints = "-";
     }
 }

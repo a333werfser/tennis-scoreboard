@@ -17,11 +17,6 @@ public class MatchesServlet extends HttpServlet {
 
     private final MatchDao matchDao = new MatchDao();
 
-    /*
-    допилить гет метод
-    отрефакторить матчскор контроллер, чтоб был тредсейф
-     */
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String playerName = request.getParameter("filter_by_player_name");
