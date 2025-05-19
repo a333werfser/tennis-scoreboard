@@ -17,15 +17,29 @@ public class MatchesServlet extends HttpServlet {
 
     private final MatchDao matchDao = new MatchDao();
 
+    /*
+    допилить гет метод
+    отрефакторить матчскор контроллер, чтоб был тредсейф
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String playerName = request.getParameter("filter_by_player_name");
         int page = parsePage(request);
 
-        PaginationService paginationService = new PaginationService(matchDao.getAllMatches());
-        int pagesNumber = paginationService.getPagesNumber();
-        List<Match> matches = paginationService.getMatchesByPage(page);
+        List<Match> matches;
 
-        request.setAttribute("matches", matches);
+        if (playerName != null) {
+            matches = matchDao.getAllMatchesByPlayerName(playerName);
+        } else {
+            matches = matchDao.getAllMatches();
+        }
+
+        PaginationService paginationService = new PaginationService(matches);
+        int pagesNumber = paginationService.getPagesNumber();
+        List<Match> pageMatches = paginationService.getMatchesByPage(page);
+
+        request.setAttribute("pageMatches", pageMatches);
         request.setAttribute("pagesNumber", pagesNumber);
         request.getRequestDispatcher("matches.jsp").forward(request, response);
     }

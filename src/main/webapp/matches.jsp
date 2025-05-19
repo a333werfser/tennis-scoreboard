@@ -22,7 +22,7 @@
             <td>Player Two</td>
             <td>Winner</td>
         </tr>
-        <c:forEach var="match" items="${matches}">
+        <c:forEach var="match" items="${pageMatches}">
             <tr>
                 <td>${match.player1.name}</td>
                 <td>${match.player2.name}</td>
