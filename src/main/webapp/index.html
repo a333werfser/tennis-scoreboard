@@ -8,8 +8,13 @@
 <body>
     <h2>Tennis scoreboard webapp</h2>
 
-    <a href="new-match.html">New match</a>
-    <br>
-    <a href="/tennis-scoreboard/matches">Completed matches</a>
+    <form action="/tennis-scoreboard/new-match" method="GET">
+        <button>Start new match</button>
+    </form>
+
+    <form action="/tennis-scoreboard/matches" method="GET">
+        <button>View match results</button>
+    </form>
+
 </body>
 </html>

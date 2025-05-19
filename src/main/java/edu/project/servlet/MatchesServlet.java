@@ -30,6 +30,11 @@ public class MatchesServlet extends HttpServlet {
             matches = matchDao.getAllMatches();
         }
 
+        if (matches.isEmpty()) {
+            response.sendRedirect("matches-not-found.html");
+            return;
+        }
+
         PaginationService paginationService = new PaginationService(matches);
         int pagesNumber = paginationService.getPagesNumber();
         List<Match> pageMatches = paginationService.getMatchesByPage(page);

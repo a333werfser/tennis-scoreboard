@@ -18,12 +18,8 @@ public class NewMatchServlet extends HttpServlet {
     private final PlayerDao playerDao = new PlayerDao();
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            request.getRequestDispatcher("/new-match.html").forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/new-match.html").forward(request, response);
     }
 
     @Override

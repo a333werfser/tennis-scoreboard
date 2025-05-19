@@ -8,6 +8,13 @@
 </head>
 <body>
 
+    <nav>
+        <p>
+            <a href="/tennis-scoreboard/new-match">Home</a>,
+            <a href="/tennis-scoreboard/matches">Matches</a>
+        </p>
+    </nav>
+
     <form action="/tennis-scoreboard/matches" method="GET">
         <label for="filter">Find matches</label>
         <input type="text" name="filter_by_player_name" id="filter">

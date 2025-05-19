@@ -7,6 +7,14 @@
 </head>
 <body>
     <h2>Current match</h2>
+
+    <nav>
+        <p>
+            <a href="/tennis-scoreboard/new-match">Home</a>,
+            <a href="/tennis-scoreboard/matches">Matches</a>
+        </p>
+    </nav>
+
     <table>
       <tr>
         <td>Player</td>
@@ -39,5 +47,6 @@
         </td>
       </tr>
     </table>
+
 </body>
 </html>
