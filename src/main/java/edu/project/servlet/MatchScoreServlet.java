@@ -42,7 +42,21 @@ public class MatchScoreServlet extends HttpServlet {
 
         int pointWinnerIndex = Integer.parseInt(request.getParameter("player_id")) - 1;
 
-        MatchScore matchScore = ongoingMatch.getMatchScore();
+        MatchScore matchScore;
+
+        /*      WARNING:
+         * очень странное поведение, тут будто бы есть race condition, если скорость кликов
+         * достаточно высокая, может выдать NullPointerException
+         * но проблему в коде я так и не нашел, а баг повторить не получилось
+         * поэтому сделал редирект на страницу с матчами
+         */
+        try {
+            matchScore = ongoingMatch.getMatchScore();
+        } catch (NullPointerException e) {
+            response.sendRedirect("/tennis-scoreboard/matches");
+            return;
+        }
+
         matchScore.increasePlayerScore(pointWinnerIndex);
 
         MatchViewData matchViewData = new MatchViewData(ongoingMatch);
@@ -51,8 +65,7 @@ public class MatchScoreServlet extends HttpServlet {
         if (matchScore.isMatchCompleted()) {
             Player winner = ongoingMatch.getWinner(pointWinnerIndex);
             ongoingMatchesService.completeMatch(uuid, winner);
-
-            view = "final-score.jsp";
+            view = "/final-score.jsp";
         } else {
             view = "/match-score.jsp";
         }

@@ -25,8 +25,13 @@ public class MatchesServlet extends HttpServlet {
         List<Match> matches;
 
         if (playerName != null) {
-            matches = matchDao.getAllMatchesByPlayerName(playerName);
-        } else {
+            if (playerName.isEmpty()) {
+                matches = matchDao.getAllMatches();
+            } else {
+                matches = matchDao.getAllMatchesByPlayerName(playerName);
+            }
+        }
+        else {
             matches = matchDao.getAllMatches();
         }
 
