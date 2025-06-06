@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <nav>
+        <p>Tennis-Scoreboard</p>
+        <p>
+            <a href="index.html">Home</a>
+            <a href="/tennis-scoreboard/matches">Matches</a>
+        </p>
+    </nav>
+
+    <div class="flex-container">
+        <article>
+            <h1>Welcome to Tennis Scoreboard</h1>
+            <p>Manage your tennis matches, record results, and track rankings</p>
+        </article>
+
+        <div class="image-wrapper">
+            <img src="images/tennis-girl.jpg">
+        </div>
+
+        <form action="/tennis-scoreboard/new-match" method="GET">
+            <button class="start-button">Start new match</button>
+        </form>
+
+        <form action="/tennis-scoreboard/matches" method="GET">
+            <button>View match results</button>
+        </form>
+    </div>
+</body>
+</html>

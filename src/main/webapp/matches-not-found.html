@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/search-form.css">
+</head>
+<body>
+    <nav>
+        <p>Tennis-Scoreboard</p>
+        <p>
+            <a href="index.html">Home</a>
+            <a href="/tennis-scoreboard/matches">Matches</a>
+        </p>
+    </nav>
+
+    <div class="flex-container">
+        <form action="/tennis-scoreboard/matches" method="GET">
+            <label for="filter">Find matches</label>
+            <input type="text" placeholder="Player name" name="filter_by_player_name" id="filter">
+    
+            <button>Search</button>
+        </form>
+    
+        <p>matches not found</p>
+    </div>
+</body>
+</html>
