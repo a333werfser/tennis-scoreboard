@@ -1,8 +1,5 @@
 package edu.project.servlet;
 
-import edu.project.dao.MatchDao;
-import edu.project.dao.PlayerDao;
-import edu.project.model.Match;
 import edu.project.model.MatchScore;
 import edu.project.model.OngoingMatch;
 import edu.project.model.Player;

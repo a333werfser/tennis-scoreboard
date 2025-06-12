@@ -19,6 +19,14 @@ public class MatchScore {
         resetSets();
     }
 
+    /**
+     *
+     * @param playerIndex
+     * <ul>
+     *     <li>0 - player 1 wins point</li>
+     *     <li>1 - player 2 wins point</li>
+     * </ul>
+     */
     public void increasePlayerScore(int playerIndex) {
         if (isTieBreak()) {
             handleTieBreak(playerIndex);
@@ -143,5 +151,15 @@ public class MatchScore {
 
     public int getSecondPlayerIndex() {
         return 1;
+    }
+
+    public void setPoints(int[] points) {
+        this.points[0] = points[0];
+        this.points[1] = points[1];
+    }
+
+    public void setGames(int[] games) {
+        this.games[0] = games[0];
+        this.games[1] = games[1];
     }
 }

@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class PlayerDao {
-
     private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public Player getByName(String playerName) {
