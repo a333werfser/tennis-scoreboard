@@ -26,6 +26,11 @@ input {
     border: 2px solid rgb(172, 197, 219);
 }
 
+form p {
+    color: red;
+    border-bottom: 1px solid red;
+}
+
 input::placeholder {
     color: rgb(91, 127, 159);
     font-family: "Poppins", sans-serif;
