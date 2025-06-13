@@ -25,9 +25,11 @@ public class MatchDao {
     public List<Match> getAllMatches() {
         List<Match> matchesList;
 
+        String hql = "SELECT m FROM Match m " +
+                "JOIN FETCH m.player1 JOIN FETCH m.player2 JOIN FETCH m.winner";
+
         try (Session session = sessionFactory.openSession()) {
-            matchesList = session.createSelectionQuery("from Match", Match.class)
-                    .getResultList();
+            matchesList = session.createQuery(hql, Match.class).getResultList();
         }
 
         return matchesList;
