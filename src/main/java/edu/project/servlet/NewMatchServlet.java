@@ -23,9 +23,15 @@ public class NewMatchServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String player1Name = request.getParameter("1-player-name");
         String player2Name = request.getParameter("2-player-name");
+
+        if (player1Name.length() > 25 || player2Name.length() > 25 || player1Name.equals(player2Name)) {
+            request.setAttribute("error", "error: names are equal or more than 25 symbols");
+            request.getRequestDispatcher("/new-match.jsp").forward(request, response);
+            return;
+        }
 
         Player player1 = playerDao.getByName(player1Name);
         Player player2 = playerDao.getByName(player2Name);
